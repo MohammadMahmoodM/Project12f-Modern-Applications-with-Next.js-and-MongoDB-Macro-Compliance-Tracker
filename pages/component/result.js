@@ -1,6 +1,6 @@
 import react, { useState, useEffect } from 'react';
 
-const result = ({results}) => {
+const Result = ({results}) => {
     let [bg, setbg] = useState("");
 
     useEffect(() => {
@@ -36,3 +36,5 @@ const result = ({results}) => {
         </div>
     )
 }
+
+export default Result;
