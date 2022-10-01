@@ -45,7 +45,7 @@ export default function Home() {
             <h3 className='text-xl'>Carbs</h3>
           </div>
 
-          <div class="w-1/3 p-4 bg-blue-500 text-white">
+          <div class="w-1/3 p-4 bg-green-500 text-white">
             <h2 className='text-3xl font-bold'>55
               <div class="flex text-sm p-3">
                 <div class="w-1/3">50</div>
@@ -56,7 +56,7 @@ export default function Home() {
             <h3 className='text-xl'>Fat</h3>
           </div>
 
-          <div class='w-1/3 p-4 bg-yellow-500 text-white'>
+          <div class='w-1/3 p-4 bg-blue-500 text-white'>
             <h2 className='text-3xl font-bold'>120
               <div class="flex text-sm p-3">
                 <div class='w-1/3'>145</div>
