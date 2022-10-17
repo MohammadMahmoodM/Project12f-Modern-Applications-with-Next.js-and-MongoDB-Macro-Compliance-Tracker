@@ -61,10 +61,10 @@ export default function Home() {
             <h1>Macro Compliance Tracker</h1>
           </div>
         </div>
-        <div class="flex text-center">
-          <div class="w-1/3 bg-gray-200 p-3">Previous Day</div>
-          <div class="w-1/3 p-6">10/1/2022</div>
-          <div class="w-1/3 bg-gray-200 p-3">Next day</div>
+        <div className="flex text-center">
+          <div className="w-1/3 bg-gray-200 p-3">Previous Day</div>
+          <div className="w-1/3 p-6">10/1/2022</div>
+          <div className="w-1/3 bg-gray-200 p-3">Next day</div>
         </div>
 
         <div className="flex mb-4 text-center">
