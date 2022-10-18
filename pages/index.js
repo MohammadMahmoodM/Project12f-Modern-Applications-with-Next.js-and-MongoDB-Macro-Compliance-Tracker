@@ -100,7 +100,7 @@ const Home = ({data}) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export async function getStaticProps() {
   const res = await fetch("/api/daily");
   const json = await res.json();
   return {
