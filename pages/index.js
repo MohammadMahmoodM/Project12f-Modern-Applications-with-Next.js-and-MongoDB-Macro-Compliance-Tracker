@@ -100,9 +100,10 @@ const Home = ({data}) => {
   )
 }
 
-export const getServerSideProps = async () => {
+export async function getStaticProps(context) {
   const res = await fetch('https://dynamic-blini-89c7b4.netlify.app/api/daily');
   const json = await res.json();
+  console.log(context);
   return {
     props: {
       data: json,
