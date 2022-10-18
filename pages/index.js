@@ -25,7 +25,7 @@ const Home = ({data}) => {
   const getDataForPreviousDay = async () => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
-    const res = await fetch('http://next-mongodb-macro-compliance-tracker/api/daily?date=' + newDate)
+    const res = await fetch(`https://next-mongodb-macro-compliance-tracker.vercel.app/api/daily?date=${newDate}`)
     const json = await res.json()
 
     setResults(json);
@@ -34,14 +34,14 @@ const Home = ({data}) => {
   const getDataForNextDay = async () => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.add(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
-    const res = await fetch('http://next-mongodb-macro-compliance-tracker/api/daily?date=' + newDate)
+    const res = await fetch(`https://next-mongodb-macro-compliance-tracker.vercel.app/api/daily?date=${newDate}`)
     const json = await res.json()
 
     setResults(json);
   }
 
   const updateMacros = async () => {
-    const res = await fetch('http://next-mongodb-macro-compliance-tracker/api/daily', {
+    const res = await fetch("https://next-mongodb-macro-compliance-tracker.vercel.app/api/daily", {
       method: 'post',
       body: JSON.stringify(results)
     })
@@ -100,8 +100,8 @@ const Home = ({data}) => {
   )
 }
 
-export async function getStaticProps(context) {
-  const res = await fetch("http://next-mongodb-macro-compliance-tracker/api/daily");
+export const getServerSideProps = async () => {
+  const res = await fetch("http://next-mongodb-macro-compliance-tracker.vercel.app/api/daily");
   const json = await res.json();
   return {
     props: {
