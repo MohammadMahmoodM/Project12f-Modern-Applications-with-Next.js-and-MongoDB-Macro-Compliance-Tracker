@@ -1,36 +1,11 @@
 import { useState } from 'react';
 import Head from 'next/head';
-import Result from './component/result';
-import MCTForm from './component/MCTForm';
+import fetch from 'isomorphic-unfetch';
+import Result from '../component/result';
+import MCTForm from '../component/MCTForm';
+import dayjs from 'dayjs';
 
-export default function Home() {
-
-  let data = {
-    calories: {
-      label: "Calories",
-      total: 1840,
-      target: 1840,
-      variant: 15
-    },
-    carbs: {
-      label: "Carbs",
-      total: 190,
-      target: 160,
-      variant: 15
-    },
-    fat: {
-      label: "Fat",
-      total: 55,
-      target: 60,
-      variant: 10
-    },
-    protein: {
-      label: "Protein",
-      total: 120,
-      target: 165,
-      variant: 10
-    }
-  }
+const Home = ({data}) => {
 
   const [results, setResults] = useState(data);
 
@@ -42,10 +17,38 @@ export default function Home() {
     let resultType = name.split(" ")[0].toLowerCase();
     let resultMacro = name.split(" ")[1].toLowerCase();
 
-    data[resultMacro][resultType] = e.target.value;
+    data[resultMacro][resultType] = parseInt(e.target.value);
 
     setResults(data);
   }
+
+  const getDataForPreviousDay = async () => {
+    let currentDate = dayjs(results.date);
+    let newDate = currentDate.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
+    const res = await fetch('http://localhost:3000/api/daily?date=' + newDate)
+    const json = await res.json()
+
+    setResults(json);
+  }
+
+  const getDataForNextDay = async () => {
+    let currentDate = dayjs(results.date);
+    let newDate = currentDate.add(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
+    const res = await fetch('http://localhost:3000/api/daily?date=' + newDate)
+    const json = await res.json()
+
+    setResults(json);
+  }
+
+  const updateMacros = async () => {
+    const res = await fetch('http://localhost:3000/api/daily', {
+      method: 'post',
+      body: JSON.stringify(results)
+    })
+
+    console.log(res);
+  }
+
   return (
     <div>
       <Head>
@@ -62,9 +65,13 @@ export default function Home() {
           </div>
         </div>
         <div className="flex text-center">
-          <div className="w-1/3 bg-gray-200 p-3">Previous Day</div>
-          <div className="w-1/3 p-6">10/1/2022</div>
-          <div className="w-1/3 bg-gray-200 p-3">Next day</div>
+          <div className="w-1/3 bg-gray-200 p-3">
+            <button onClick={getDataForPreviousDay}>Previous Day</button>
+          </div>
+          <div className="w-1/3 p-6">{dayjs(results.date).format('MM/DD/YYYY')}</div>
+          <div className="w-1/3 bg-gray-200 p-3">
+            <button onClick={getDataForNextDay}>Next Day</button>
+          </div>
         </div>
 
         <div className="flex mb-4 text-center">
@@ -81,14 +88,26 @@ export default function Home() {
         </div>
 
         <div className="flex text-center">
-        <div className="w-full m-4">
-          <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          <div className="w-full m-4">
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={updateMacros}>
               Save
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
 
       </div>
     </div>
   )
 }
+
+export async function getStaticProps(context) {
+  const res = await fetch("http://localhost:3000/api/daily");
+  const json = await res.json();
+  return {
+    props: {
+      data: json,
+    },
+  };
+}
+
+export default Home
