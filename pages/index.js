@@ -102,7 +102,7 @@ const Home = ({data}) => {
   )
 }
 
-export async function getStaticProps(context) {
+export const getServerSideProps = async () => {
   const res = await fetch(apiUrl);
   const json = await res.json();
   return {
@@ -110,6 +110,6 @@ export async function getStaticProps(context) {
       data: json,
     },
   };
-}
+};
 
 export default Home
