@@ -25,7 +25,7 @@ const Home = ({data}) => {
   const getDataForPreviousDay = async () => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.subtract(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
-    const res = await fetch('http://localhost:3000/api/daily?date=' + newDate)
+    const res = await fetch('/api/daily?date=' + newDate)
     const json = await res.json()
 
     setResults(json);
@@ -34,14 +34,14 @@ const Home = ({data}) => {
   const getDataForNextDay = async () => {
     let currentDate = dayjs(results.date);
     let newDate = currentDate.add(1, 'day').format('YYYY-MM-DDTHH:mm:ss')
-    const res = await fetch('http://localhost:3000/api/daily?date=' + newDate)
+    const res = await fetch('/api/daily?date=' + newDate)
     const json = await res.json()
 
     setResults(json);
   }
 
   const updateMacros = async () => {
-    const res = await fetch('http://localhost:3000/api/daily', {
+    const res = await fetch('/api/daily', {
       method: 'post',
       body: JSON.stringify(results)
     })
@@ -101,7 +101,7 @@ const Home = ({data}) => {
 }
 
 export async function getStaticProps(context) {
-  const res = await fetch("http://localhost:3000/api/daily");
+  const res = await fetch("/api/daily");
   const json = await res.json();
   return {
     props: {
