@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
 import nextConnect from 'next-connect';
 
-const client = new MongoClient("mongodb://root:pak1437986@ac-vtgwnvm-shard-00-00.lss2kke.mongodb.net:27017,ac-vtgwnvm-shard-00-01.lss2kke.mongodb.net:27017,ac-vtgwnvm-shard-00-02.lss2kke.mongodb.net:27017/?ssl=true&replicaSet=atlas-1469ge-shard-0&authSource=admin&retryWrites=true&w=majority", {
+const client = new MongoClient("mongodb://root:pak1437986@ac-vtgwnvm-shard-00-00.lss2kke.mongodb.net:27017,ac-vtgwnvm-shard-00-01.lss2kke.mongodb.net:27017,ac-vtgwnvm-shard-00-02.lss2kke.mongodb.net:27017/test?replicaSet=atlas-1469ge-shard-0&ssl=true&authSource=admin", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
